@@ -1,0 +1,9 @@
+- For the IRIS Dataset machine learning model, the following techniques are recommended:
+  - Preprocessing Steps:
+    - Data Pre-processing involving fixing missing data cells and encoding categorical data.
+    - Efficient techniques for preprocessing the IRIS Dataset with libraries like Pandas and NumPy.
+    - Summarized preprocessing steps including data loading, splitting, scaling, and encoding.
+  - Algorithms:
+    - Implementing common supervised learning algorithms like decision trees, logistic regression, and k-nearest neighbors for classification tasks.
+    - Performance comparison of different classification algorithms from scikit-learn on the Iris dataset.
+    - Selecting algorithms based on the problem requirements and evaluating them with Iris dataset features.

@@ -7,7 +7,7 @@ dotenv_path = os.path.join(os.path.dirname(__file__), ".env")
 load_dotenv(dotenv_path)
 
 # Debug check
-print("OPENAI_API_KEY from env:", os.getenv("OPENAI_API_KEY"))
+# print("OPENAI_API_KEY from env:", os.getenv("OPENAI_API_KEY"))
 
 from src.orchestrator import CollaborationOrchestrator
 
@@ -15,8 +15,7 @@ if __name__ == "__main__":
     system = CollaborationOrchestrator()
 
     requirements = (
-        "Build a machine learning model to predict house prices."
-        "Include proper error handling, data validation, and model persistence."
+     "Build a Machine Learning model to suit IRIS Dataset."   
     )
 
     output = system.run(requirements)
@@ -31,7 +30,3 @@ if __name__ == "__main__":
 
     print("\n✅ Final code saved to final_code.py")
     
-
-
-
-
