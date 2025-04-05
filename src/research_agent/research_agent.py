@@ -45,7 +45,7 @@ class ResearchAgent:
                 f"Search Summary: {search_summary}"
             ),
             expected_output="Bullet point list of recommended techniques with justification.",
-            output_file="research_output.txt",
+            output_file="generated_outputs/researcher_agent_output.txt",
             agent=self.agent,
         )
 

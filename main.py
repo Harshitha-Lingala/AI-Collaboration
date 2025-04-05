@@ -25,7 +25,7 @@ if __name__ == "__main__":
     final_code = match.group(1) if match else output  # fallback to raw output if no match
 
     # ✅ Save the final code to a Python file
-    with open("final_code.py", "w") as f:
+    with open("generated_outputs/final_code_generated.py", "w") as f:
         f.write(final_code)
 
     print("\n✅ Final code saved to final_code.py")

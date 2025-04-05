@@ -1,0 +1,14 @@
+- Recommended Algorithms:
+  - Logistic Regression
+  - K-Nearest Neighbors Classification
+  - Decision Tree Classifier
+
+- Preprocessing Steps:
+  - Fixing missing data-cells in the dataset
+  - Encoding Categorical Data (if applicable)
+  - Data normalization or scaling
+  - Feature selection or dimensionality reduction (if necessary)
+  - Splitting the dataset into training and testing sets
+
+- Model Types:
+  - Classification models are suitable for the IRIS Dataset, such as logistic regression, KNN, and decision trees, as it is a classification problem.

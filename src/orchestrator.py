@@ -106,7 +106,7 @@ class CollaborationOrchestrator:
 
     def _save_final_code(self, code):
         """Save final validated code"""
-        output_path = Path("final_code.py")
+        output_path = Path("generated_outputs/final_code_generated.py")
         output_path.write_text(code)
         print(f"Final code saved to {output_path.absolute()}")
 
