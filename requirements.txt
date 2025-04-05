@@ -1,0 +1,8 @@
+# requirements.txt
+openai
+dotenv
+python-dotenv
+pytest
+pandas
+scikit-learn
+
