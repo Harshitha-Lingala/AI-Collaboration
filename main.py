@@ -24,9 +24,9 @@ if __name__ == "__main__":
     match = re.search(r"```python\n(.*?)```", output, re.DOTALL)
     final_code = match.group(1) if match else output  # fallback to raw output if no match
 
-    # ✅ Save the final code to a Python file
+    #  Save the final code to a Python file
     with open("generated_outputs/final_code_generated.py", "w") as f:
         f.write(final_code)
 
-    print("\n✅ Final code saved to final_code.py")
+    print("\n Final code saved to final_code.py")
     

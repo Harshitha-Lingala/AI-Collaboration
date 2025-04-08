@@ -1,3 +1,4 @@
+
 import openai
 import os
 from dotenv import load_dotenv
@@ -21,6 +22,7 @@ class AITesterAgent:
             "- Syntax errors\n- Logical issues\n- Runtime problems\n"
             "- Improperly initialized components\n- Incorrect method calls\n"
             "- Missing dependencies\n- Unused modules\n\n"
+            "-or any other errors that you notice"
             f"Script Name: {script_name}\n"
             "Script:\n" + script_content
         )
@@ -31,4 +33,15 @@ class AITesterAgent:
             temperature=0.5
         )
 
-        return response.choices[0].message.content
+        output = response.choices[0].message.content
+
+        # Ensure the output directory exists
+        output_dir = "generated_outputs"
+        os.makedirs(output_dir, exist_ok=True)
+
+        # Write the output to a file
+        output_path = os.path.join(output_dir, "tester_agent_output.txt")
+        with open(output_path, "w", encoding="utf-8") as file:
+            file.write(output)
+
+        return output

@@ -11,3 +11,7 @@ requests
 crewai[tools]
 langchain
 langchain-community
+pandas
+matplotlib
+seaborn
+ace_tools

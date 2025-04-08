@@ -1,0 +1,36 @@
+# Import necessary libraries
+import numpy as np
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+from sklearn.datasets import load_files
+
+# Load the IMDB dataset
+reviews = load_files('path_to_imdb_dataset', categories=['pos', 'neg'])
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(reviews.data, reviews.target, test_size=0.2, random_state=42)
+
+# Initialize the CountVectorizer
+vectorizer = CountVectorizer(stop_words='english')
+
+# Fit and transform the training data
+X_train_counts = vectorizer.fit_transform(X_train)
+
+# Transform the testing data
+X_test_counts = vectorizer.transform(X_test)
+
+# Introduce bug: Using incorrect parameter name 'penaltyy' instead of 'penalty'
+# Initialize the Logistic Regression classifier
+clf = LogisticRegression(penaltyy='l2', random_state=42)
+
+# Fit the classifier on the training data
+clf.fit(X_train_counts, y_train)
+
+# Make predictions on the testing data
+y_pred = clf.predict(X_test_counts)
+
+# Calculate the accuracy of the classifier
+accuracy = accuracy_score(y_test, y_pred)
+print(f'Accuracy: {accuracy}')

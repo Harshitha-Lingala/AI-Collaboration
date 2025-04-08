@@ -1,0 +1,74 @@
+
+import os
+import json
+import re
+from pathlib import Path
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import warnings
+
+# Suppress seaborn warnings
+warnings.filterwarnings("ignore")
+
+# Set path to the evaluation folder
+eval_folder = Path("src/tester_agent/tester_evaluation/llm_judge_evaluations")
+
+# Load and parse evaluation files
+data = []
+for file in eval_folder.glob("*.json"):
+    with open(file, "r") as f:
+        content = f.read()
+
+        # extract JSON object
+        match = re.search(r'\{.*\}', content, re.DOTALL)
+        if match:
+            try:
+                parsed = json.loads(match.group(0))
+
+                filename = file.stem
+
+                # Detect model type from filename
+                if "gpt-4" in filename:
+                    parsed["model"] = "GPT-4"
+                elif "gpt-35-turbo" in filename:
+                    parsed["model"] = "GPT-3.5"
+                else:
+                    continue  # Skip unknown models
+
+                data.append(parsed)
+            except json.JSONDecodeError:
+                print(f"⚠️ Could not parse: {file.name}")
+
+# Create DataFrame
+df = pd.DataFrame(data)
+
+# Drop incomplete rows
+df.dropna(subset=["score", "accuracy", "helpfulness", "coverage"], inplace=True)
+
+# Convert columns to numeric
+for col in ["score", "accuracy", "helpfulness", "coverage"]:
+    df[col] = pd.to_numeric(df[col], errors="coerce")
+
+# ✅ Group by model and calculate average scores
+avg_df = df.groupby("model")[["accuracy", "helpfulness", "coverage", "score"]].mean().reset_index()
+
+# Melt for plotting
+avg_df_melted = avg_df.melt(id_vars="model", var_name="Metric", value_name="Average Score")
+
+# Plot: Bar plot comparing GPT-3.5 vs GPT-4
+plt.figure(figsize=(8, 6))
+ax = sns.barplot(data=avg_df_melted, x="Metric", y="Average Score", hue="model")
+plt.title("📊 Average Judge Scores: GPT-3.5 vs GPT-4")
+plt.ylim(0, 5)
+plt.ylabel("Score (1-5)")
+# Add numeric score labels on bars
+for container in ax.containers:
+    ax.bar_label(container, fmt="%.2f", padding=3)
+plt.tight_layout()
+plt.show()
+
+# Optional sanity print
+print("\n✅ Models found:", df["model"].unique())
+print("\n📊 Average scores per model:")
+print(avg_df.to_string(index=False))

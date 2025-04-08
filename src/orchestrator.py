@@ -17,39 +17,12 @@ class CollaborationOrchestrator:
         self.tester = AITesterAgent()
         self.state_path = Path("collaboration_state.json")
 
-    # def run(self, requirements, max_iterations=2): #change iterations here
-    #     feedback = None
-
-    #     for iteration in range(1, max_iterations + 1):
-    #         print(f"\n{'='*40}\nIteration {iteration}/{max_iterations}\n{'='*40}")
-
-    #         # Generate/revise code
-    #         code = self.developer.generate_code(requirements, feedback)
-    #         print(f"\nGenerated Code:\n{'-'*30}\n{code}\n{'-'*30}")
-
-    #         # Save state
-    #         self._save_state(code, feedback)
-
-    #         # Test code
-    #         test_result = self.tester.test_script(code)
-    #         print(f"\nTest Results:\n{'-'*30}\n{test_result}\n{'-'*30}")
-
-    #         # If code passes, save and exit
-    #         if "No critical issues found" in test_result:
-    #             print("\n✅ All tests passed!")
-    #             self._save_final_code(code)
-    #             return code
-
-    #         feedback = test_result  # Update feedback for next iteration
-
-    #     print("\n❌ Maximum iterations reached")
-    #     return code
 
     def run(self, user_problem, max_iterations=2):
     # STEP 1: Use Research Agent to generate insights
-        print("\n🔍 Running Research Agent...")
+        print("\n Running Research Agent...")
         research_output = self.researcher.analyze(user_problem)
-        print(f"\n📋 Research Agent Output:\n{research_output}")
+        print(f"\n Research Agent Output:\n{research_output}")
 
         # STEP 2: Combine research insights with original requirements
         full_requirements = (
@@ -61,7 +34,7 @@ class CollaborationOrchestrator:
         print('-------------------------------------------------')
 
         # best_model = self.researcher.extract_best_model(research_output)
-        # print(f"\n🏆 Best Model Selected: {best_model['model_name']}")
+        # print(f"\n Best Model Selected: {best_model['model_name']}")
         
         # # Pass only the best model's details to the developer
         # full_requirements = (
@@ -90,13 +63,13 @@ class CollaborationOrchestrator:
             print(f"\nTest Results:\n{'-'*30}\n{test_result}\n{'-'*30}")
 
             if "No critical issues found" in test_result:
-                print("\n✅ All tests passed!")
+                print("\n All tests passed!")
                 self._save_final_code(code)
                 return code
 
             feedback = test_result
 
-        print("\n❌ Maximum iterations reached")
+        print("\n Maximum iterations reached")
         return code
 
 
